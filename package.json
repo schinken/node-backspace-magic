@@ -1,0 +1,26 @@
+{
+    "name": "node-backspace-magic",
+    "version": "0.1.0",
+    "author": "schinken <schinken@hackerspace-bamberg.de>",
+    "description": "backspace automation collection",
+    "contributors": [
+        {
+            "name": "schinken",
+            "email": "schinken@hackerspace-bamberg.de"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/schinken/node-udpio-events.git"
+    },
+    "keywords": [
+        "magic", "network", "automation"
+    ],
+    "dependencies" : {
+        "bckspc-status": "https://github.com/schinken/nodejs-bckspc-status/tarball/master",
+        "node-udpio-events": "https://github.com/schinken/node-udpio-events/tarball/master"
+    },
+    "engine": {
+        "node": ">=0.6.0"
+    }
+}
