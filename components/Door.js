@@ -89,7 +89,41 @@ Door.prototype.button = function(val) {
 };
 
 Door.prototype.door_lock = function(lock) {
-    
+
+    if(lock == DOOR_UNLOCK) {
+        var action = 'Open';
+    } else {
+        var action = 'Close';
+    }
+
+    var post_data = querystring.stringify({
+        'type':     action,
+        'password': settings.door.pass
+    });
+
+    var post_options = {
+        host: settings.door.host,
+        port: '443',
+        path: settings.door.path,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': post_data.length
+        }
+    };
+
+    // Set up the request
+    var post_req = https.request(post_options, function(res) {
+        res.setEncoding('utf8');
+        res.on('end', function () {
+            // Door should log now
+        });
+    });
+
+    // post the data
+    post_req.write(post_data);
+    post_req.end();
+  
 };
 
 
