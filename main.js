@@ -1,4 +1,4 @@
-var Udpio = require('Udpio')
+var Udpio = require('./Udpio')
    ,Door  = require('./components/Door')
    ,Heater = require('./components/Heater');
 
