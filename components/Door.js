@@ -3,6 +3,8 @@ var https = require('https')
    ,settings = require('../settings')
    ,Webrelais = require('Webrelais');
 
+var DOOR_UNLOCK = false;
+var DOOR_LOCK = true;
 
 var Door = function() {
 
@@ -20,21 +22,22 @@ Door.prototype.frame = function(val) {
     
     if(val) {
 
+        // If close was requested and door was closed (frame not locked)
         if(this.close_requested) {
             
+            // we need to clear the previous timeout
             if(this.close_request_timeout) {
-                // we need to clear the previous timeout
                 clearTimeout(this.close_request_timeout);
                 this.close_request_timeout = false;
             }
 
             this.close_request = false;
-            this.door_lock(true);
+            this.door_lock(DOOR_LOCK);
         }
 
-        this.door = false;
+        this.frame = false;
     } else {
-        this.door = true;
+        this.frame = true;
     }
 };
 
@@ -64,13 +67,12 @@ Door.prototype.button = function(val) {
 
     if(val) {
 
-        if(this.locked && !this.frame) {
-            this.door_lock(true);          
-        } else {
-            // Request triggered but door is not locked
+        // if door is locked open the door
+        if(this.locked) {
+            this.door_lock(DOOR_UNLOCK);
         }
 
-        if(this.frame) {
+        if(!this.frame) {
             // Button pressed + door is open; deferring close Request
             this.close_request_timeout = setTimeout(function() {
                 this.close_requested = false;
