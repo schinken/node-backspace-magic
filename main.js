@@ -1,5 +1,5 @@
-var Udpio = require('Udpio'),
-    Door  = require('./components/Door');
+var Udpio = require('Udpio')
+   ,Door  = require('./components/Door');
 
 var doorcontrol = new Door();
 var udp_events = new Udpio('AIO0');
