@@ -18,7 +18,7 @@
     ],
     "dependencies" : {
         "bckspc-status": "https://github.com/schinken/nodejs-bckspc-status/tarball/master",
-        "Webrelais": "https://github.com/schinken/node-webrelais-client/tarball/master"
+        "winston": "latest"
     },
     "engine": {
         "node": ">=0.6.0"
