@@ -77,3 +77,6 @@ Door.prototype.button = function(val) {
 Door.prototype.door_lock = function(lock) {
     
 };
+
+
+module.exports = Door;
