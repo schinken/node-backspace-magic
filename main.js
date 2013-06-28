@@ -1,13 +1,16 @@
 var Udpio = require('./Udpio')
    ,Door  = require('./components/Door')
-   ,Heater = require('./components/Heater');
+   ,Heater = require('./components/Heater')
+   ,winston = require('winston')
+   ,settings = require('./settings')
+   ,StatusAPI = require('bckspc-status');
 
 var status_api = new StatusAPI(settings.status_api, 120);
 
-var doorcontrol = new Door();
-var heater = new Heater();
+var doorcontrol = new Door(winston);
+var heater = new Heater(winston);
 
-var udp_events = new Udpio('AIO0');
+var udp_events = new Udpio('AIO0', '0.0.0.0', settings.udpio.port, winston);
 
 // Doorcontrol
 udp_events.on('doorlock', function(val) {

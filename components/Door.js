@@ -6,7 +6,9 @@ var https = require('https')
 var DOOR_UNLOCK = false;
 var DOOR_LOCK = true;
 
-var Door = function() {
+var Door = function(logger) {
+
+    this.logger = logger;
 
     this.frame = false;
     this.lock = false;
@@ -22,9 +24,13 @@ Door.prototype.frame = function(val) {
     
     if(val) {
 
+        this.logger.info('Door has been opened');
+
         // If close was requested and door was closed (frame not locked)
         if(this.close_requested) {
             
+            this.logger.info('Close was requested by button');
+
             // we need to clear the previous timeout
             if(this.close_request_timeout) {
                 clearTimeout(this.close_request_timeout);
@@ -37,6 +43,7 @@ Door.prototype.frame = function(val) {
 
         this.frame = false;
     } else {
+        this.logger.info('Door has been closed');
         this.frame = true;
     }
 };
@@ -44,16 +51,22 @@ Door.prototype.frame = function(val) {
 Door.prototype.lock = function(val) {
     
     if(val) {
+        this.logger.info('Door has been locked');
         this.locked = true;
     } else {
 
+        this.logger.info('Door has been unlocked');
+
         if(this.locked) {
             // Door was locked previously, switch on light for 5 min
+            this.logger.info('Switching on white light in hackcenter');
             this.wr.set_port(settings.relais.notleuchte_weiss, 1, function() {
                 // Notleuchte ist an...
+                this.logger.info('White light switched on');
                 setTimeout(function() {
                     this.wr.set_port(settings.relais.notleuchte_weiss, 0, function() {
                         // Notleuchte ist aus
+                        this.logger.info('Switching off white light in hackcenter');
                     });
                 }, 5*60*1000);
             });
@@ -67,14 +80,21 @@ Door.prototype.button = function(val) {
 
     if(val) {
 
+        this.logger.info('Button has been pressed');
+
         // if door is locked open the door
         if(this.locked) {
+            this.logger.info('Door is locked: opening');
             this.door_lock(DOOR_UNLOCK);
         }
 
         if(!this.frame) {
+            this.logger.info('Door is unlocked: processing close');
+
             // Button pressed + door is open; deferring close Request
             this.close_request_timeout = setTimeout(function() {
+                this.logger.warn('Close processing failed, timeout');
+
                 this.close_requested = false;
                 this.close_request_timeout = false;
             }, 5*60*1000);
@@ -92,9 +112,12 @@ Door.prototype.door_lock = function(lock) {
 
     if(lock == DOOR_UNLOCK) {
         var action = 'Open';
+        this.logger.info('Processing door open');
     } else {
         var action = 'Close';
+        this.logger.info('Processing door close');
     }
+
 
     var post_data = querystring.stringify({
         'type':     action,
@@ -116,7 +139,8 @@ Door.prototype.door_lock = function(lock) {
     var post_req = https.request(post_options, function(res) {
         res.setEncoding('utf8');
         res.on('end', function () {
-            // Door should log now
+            // Door should lock now
+            this.logger.info('Processed '+action+' request');
         });
     });
 
