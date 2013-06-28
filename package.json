@@ -11,14 +11,14 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/schinken/node-udpio-events.git"
+        "url": "https://github.com/schinken/node-backspace-magic.git"
     },
     "keywords": [
         "magic", "network", "automation"
     ],
     "dependencies" : {
         "bckspc-status": "https://github.com/schinken/nodejs-bckspc-status/tarball/master",
-        "node-udpio-events": "https://github.com/schinken/node-udpio-events/tarball/master"
+        "Udpio": "https://github.com/schinken/node-udpio-events/tarball/master"
     },
     "engine": {
         "node": ">=0.6.0"
