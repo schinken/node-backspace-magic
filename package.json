@@ -18,7 +18,7 @@
     ],
     "dependencies" : {
         "bckspc-status": "https://github.com/schinken/nodejs-bckspc-status/tarball/master",
-        "Udpio": "https://github.com/schinken/node-udpio-events/tarball/master"
+        "Udpio": "https://github.com/schinken/node-udpio-events/tarball/master",
         "Webrelais": "https://github.com/schinken/node-webrelais-client/tarball/master"
     },
     "engine": {
