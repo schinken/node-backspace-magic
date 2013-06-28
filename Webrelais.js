@@ -10,6 +10,7 @@ var  RESET  = 'DELETE'
     ,SET    = 'POST';
 
 var Webrelais = function(baseurl) {
+    console.log("Creating webrelais with baseurl"+baseurl);
     this.baseurl  = baseurl;
     this.username = false;
     this.password = false;
@@ -40,6 +41,10 @@ Webrelais.prototype.send_command = function(path, type, callback) {
     // Set up the request
     var client = this;
     var req = http_s.request(options, function(res) {
+    
+        // I need to read data to receive an "end"? Oo
+        res.on('data', function(chunk) {});
+
         res.setEncoding('utf8');
         res.on('end', function () {
             callback();
