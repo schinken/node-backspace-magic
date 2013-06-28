@@ -24,12 +24,13 @@ util.inherits(UDPIO, events.EventEmitter);
 UDPIO.prototype.setup = function() {
     var that = this;
     this.udp_client.on('message', function(msg) {
+        msg = msg.toString();
         var m = msg.match(/\<(\w+):(\w+):([0-9.]+)\>/);
         if(m) {
             var key = m[2];
             var val = (m[3].indexOf('.') !== -1)? parseFloat(m[3]) : parseInt(m[3], 10);
 
-            that.log('info', 'received package %s: %d', key, val);
+            that.logger.log('info', 'received package %s: %d', key, val);
             that.emit(key, val);
         }
     });

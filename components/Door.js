@@ -10,9 +10,9 @@ var Door = function(logger) {
 
     this.logger = logger;
 
-    this.frame = false;
-    this.lock = false;
-    this.button = false;
+    this.inframe = false;
+    this.locked = false;
+    this.button_pressed = false;
 
     this.close_requested = false;
     this.close_request_timeout = false;
@@ -41,10 +41,10 @@ Door.prototype.frame = function(val) {
             this.door_lock(DOOR_LOCK);
         }
 
-        this.frame = false;
+        this.inframe = false;
     } else {
         this.logger.info('Door has been closed');
-        this.frame = true;
+        this.inframe = true;
     }
 };
 
@@ -88,7 +88,7 @@ Door.prototype.button = function(val) {
             this.door_lock(DOOR_UNLOCK);
         }
 
-        if(!this.frame) {
+        if(!this.inframe) {
             this.logger.info('Door is unlocked: processing close');
 
             // Button pressed + door is open; deferring close Request
@@ -100,11 +100,11 @@ Door.prototype.button = function(val) {
             }, 5*60*1000);
         }
 
-        this.button = true;
+        this.button_pressed = true;
 
     } else {
         // Button released
-        this.button = false;
+        this.button_pressed = false;
     }
 };
 
