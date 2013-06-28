@@ -7,7 +7,6 @@ var HEATER_OFF = 1;
 
 var Heater = function(logger) {
     this.logger = logger;
-    console.log(settings);
     this.wr = new Webrelais(settings.relais_host);
 };
 
