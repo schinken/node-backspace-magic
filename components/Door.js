@@ -1,5 +1,7 @@
 var https = require('https')
-   ,querystring = require('querystring');
+   ,querystring = require('querystring')
+   ,settings = require('../settings')
+   ,Webrelais = require('Webrelais');
 
 
 var Door = function() {
@@ -10,6 +12,8 @@ var Door = function() {
 
     this.close_requested = false;
     this.close_request_timeout = false;
+
+    this.wr = new Webrelais(settings.relais_host);
 };
 
 Door.prototype.frame = function(val) {
@@ -42,6 +46,14 @@ Door.prototype.lock = function(val) {
 
         if(this.locked) {
             // Door was locked previously, switch on light for 5 min
+            this.wr.set_port(settings.relais.notleuchte_weiss, 1, function() {
+                // Notleuchte ist an...
+                setTimeout(function() {
+                    this.wr.set_port(settings.relais.notleuchte_weiss, 0, function() {
+                        // Notleuchte ist aus
+                    });
+                }, 5*60*1000);
+            });
         }
 
         this.locked = false;
