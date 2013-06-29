@@ -6,7 +6,7 @@ var DatabaseLog = function(logger) {
     this.connection = this.connect();
 };
 
-DatabaseLog.prototype.handleDisconnect(connection) {
+DatabaseLog.prototype.handleDisconnect = function(connection) {
 
     var that = this;
 
@@ -40,8 +40,6 @@ DatabaseLog.prototype.connect = function() {
 
     return connection;
 };
-
-handleDisconnect(connection);
 
 DatabaseLog.prototype.logEvent = function(contact, value) {
 
