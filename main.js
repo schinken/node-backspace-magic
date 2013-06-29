@@ -7,7 +7,10 @@ var Udpio = require('./Udpio')
 
 var logger = new (winston.Logger)({
     transports: [
-        new (winston.transports.Console)({ timestamp: true })
+        new (winston.transports.Console)({
+            timestamp: true,
+            colorize: true
+        })
     ]
 });
 
