@@ -5,12 +5,18 @@ var Udpio = require('./Udpio')
    ,settings = require('./settings')
    ,StatusAPI = require('bckspc-status');
 
+var logger = new (winston.Logger)({
+    transports: [
+        new (winston.transports.Console)({ timestamp: true })
+    ]
+});
+
 var status_api = new StatusAPI(settings.status_api, 120);
 
-var doorcontrol = new Door(winston);
-var heater = new Heater(winston);
+var doorcontrol = new Door(logger);
+var heater = new Heater(logger);
 
-var udp_events = new Udpio('AIO0', settings.udpio.port, winston);
+var udp_events = new Udpio('AIO0', settings.udpio.port, logger);
 
 // Request packages on init
 udp_events.init();
