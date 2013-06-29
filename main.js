@@ -10,7 +10,10 @@ var status_api = new StatusAPI(settings.status_api, 120);
 var doorcontrol = new Door(winston);
 var heater = new Heater(winston);
 
-var udp_events = new Udpio('AIO0', '0.0.0.0', settings.udpio.port, winston);
+var udp_events = new Udpio('AIO0', settings.udpio.port, winston);
+
+// Request packages on init
+udp_events.init();
 
 // Doorcontrol
 udp_events.on('doorlock', function(val) {
