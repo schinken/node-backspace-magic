@@ -1,7 +1,7 @@
 var https = require('https')
    ,querystring = require('querystring')
    ,settings = require('../settings')
-   ,Webrelais = require('Webrelais');
+   ,Webrelais = require('../Webrelais');
 
 var DOOR_UNLOCK = false;
 var DOOR_LOCK = true;
