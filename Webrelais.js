@@ -10,7 +10,6 @@ var  RESET  = 'DELETE'
     ,SET    = 'POST';
 
 var Webrelais = function(baseurl) {
-    console.log("Creating webrelais with baseurl"+baseurl);
     this.baseurl  = baseurl;
     this.username = false;
     this.password = false;
