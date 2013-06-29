@@ -1,4 +1,5 @@
-var settings = require('../settings');
+var  settings = require('../settings')
+    ,mysql = require('mysql');
 
 var DatabaseLog = function(logger) {
     this.logger = logger;
