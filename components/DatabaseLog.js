@@ -43,7 +43,7 @@ DatabaseLog.prototype.connect = function() {
 
 handleDisconnect(connection);
 
-DatabaseLog.prototype.onEvent = function(contact, value) {
+DatabaseLog.prototype.logEvent = function(contact, value) {
 
     var log = this.logger;
 
