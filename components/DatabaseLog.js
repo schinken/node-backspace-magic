@@ -49,7 +49,7 @@ DatabaseLog.prototype.logEvent = function(contact, value) {
 
     var query = this.connection.query('INSERT INTO contactors SET ?', {
         'contact': contact,
-        'status': val,
+        'status': value,
         'erfda': new Date()
     },
     function(err, result) {
