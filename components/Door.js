@@ -49,6 +49,8 @@ Door.prototype.frame = function(val) {
 
 Door.prototype.lock = function(val) {
     
+    var that = this;
+
     if(val) {
         this.logger.info('Door has been locked');
         this.locked = true;
@@ -61,11 +63,11 @@ Door.prototype.lock = function(val) {
             this.logger.info('Switching on white light in hackcenter');
             this.wr.set_port(settings.relais.notleuchte_weiss, 1, function() {
                 // Notleuchte ist an...
-                this.logger.info('White light switched on');
+                that.logger.info('White light switched on');
                 setTimeout(function() {
                     this.wr.set_port(settings.relais.notleuchte_weiss, 0, function() {
                         // Notleuchte ist aus
-                        this.logger.info('Switching off white light in hackcenter');
+                        that.logger.info('Switching off white light in hackcenter');
                     });
                 }, 5*60*1000);
             });
@@ -76,6 +78,8 @@ Door.prototype.lock = function(val) {
 };
 
 Door.prototype.button = function(val) {
+
+    var that = this;
 
     if(val) {
 
@@ -94,10 +98,10 @@ Door.prototype.button = function(val) {
 
             // Button pressed + door is open; deferring close Request
             this.close_request_timeout = setTimeout(function() {
-                this.logger.warn('Close processing failed, timeout');
+                that.logger.warn('Close processing failed, timeout');
 
-                this.close_requested = false;
-                this.close_request_timeout = false;
+                that.close_requested = false;
+                that.close_request_timeout = false;
             }, 5*60*1000);
         }
 
