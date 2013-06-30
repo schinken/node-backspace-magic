@@ -24,9 +24,6 @@ Door.prototype.frame = function(val) {
     
     if(val) {
         this.logger.info('Door has been closed');
-        this.inframe = true;
-    } else {
-        this.logger.info('Door has been opened');
 
         // If close was requested and door was closed (frame not locked)
         if(this.close_requested) {
@@ -43,6 +40,9 @@ Door.prototype.frame = function(val) {
             this.door_lock(DOOR_LOCK);
         }
 
+        this.inframe = true;
+    } else {
+        this.logger.info('Door has been opened');
         this.inframe = false;
     }
 };
