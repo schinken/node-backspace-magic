@@ -111,6 +111,8 @@ Door.prototype.button = function(val) {
 
 Door.prototype.door_lock = function(lock) {
 
+    var that = this;
+
     if(lock == DOOR_UNLOCK) {
         var action = 'Open';
         this.logger.info('Processing door open');
@@ -141,7 +143,7 @@ Door.prototype.door_lock = function(lock) {
         res.setEncoding('utf8');
         res.on('end', function () {
             // Door should lock now
-            this.logger.info('Processed '+action+' request');
+            that.logger.info('Processed '+action+' request');
         });
     });
 
