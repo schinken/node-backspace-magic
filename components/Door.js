@@ -72,7 +72,7 @@ Door.prototype.lock = function(val) {
                 // Notleuchte ist an...
                 that.logger.info('White light switched on');
                 setTimeout(function() {
-                    this.wr.set_port(settings.relais.notleuchte_weiss, 0, function() {
+                    that.wr.set_port(settings.relais.notleuchte_weiss, 0, function() {
                         // Notleuchte ist aus
                         that.logger.info('Switching off white light in hackcenter');
                     });
