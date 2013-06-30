@@ -25,8 +25,8 @@ Door.prototype.frame = function(val) {
     if(val) {
         this.logger.info('Door has been closed');
 
-        this.logger.info('Switching on red light in hackcenter');
-        this.wr.set_port(settings.relais.notleuchte_rot, 1);
+        this.logger.info('Switching off red light in hackcenter');
+        this.wr.set_port(settings.relais.notleuchte_rot, 0);
 
         // If close was requested and door was closed (frame not locked)
         if(this.close_requested) {
@@ -47,8 +47,8 @@ Door.prototype.frame = function(val) {
     } else {
         this.logger.info('Door has been opened');
 
-        this.logger.info('Switching off red light in hackcenter');
-        this.wr.set_port(settings.relais.notleuchte_rot, 0);
+        this.logger.info('Switching on red light in hackcenter');
+        this.wr.set_port(settings.relais.notleuchte_rot, 1);
 
         this.inframe = false;
     }
