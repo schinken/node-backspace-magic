@@ -36,7 +36,7 @@ Door.prototype.frame = function(val) {
                 this.close_request_timeout = false;
             }
 
-            this.close_request = false;
+            this.close_requested = false;
             this.door_lock(DOOR_LOCK);
         }
 
@@ -89,6 +89,8 @@ Door.prototype.button = function(val) {
 
         if(!this.inframe) {
             this.logger.info('Door is unlocked: processing close');
+
+            this.close_requested = true;
 
             // Button pressed + door is open; deferring close Request
             this.close_request_timeout = setTimeout(function() {
