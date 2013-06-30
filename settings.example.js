@@ -11,7 +11,7 @@ module.exports = {
     'status_api': 'http://status.bckspc.de/status.php?response=json',
     'relais': {
         'notleuchte_weiss': 3,
-        'notleuchte_weiss': 4,
+        'notleuchte_rot':   4,
         'heizung':          6
     },
     'db': {
