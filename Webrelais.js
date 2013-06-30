@@ -28,6 +28,8 @@ Webrelais.prototype.needs_auth = function() {
 Webrelais.prototype.send_command = function(path, type, callback) {
 
     var options     = url.parse(this.baseurl + path);
+    callback = callback || function() {};
+
     options.method  = type;
     options.headers = {'Content-length': 0};
 
