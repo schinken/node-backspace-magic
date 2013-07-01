@@ -44,7 +44,7 @@ udp_events.on('doorbutton', function(val){
 
 // Heater
 status_api.on('space_closed', function() {
-    header.switch_off();
+    heater.switch_off();
 });
 
 status_api.on('space_opened', function() {
