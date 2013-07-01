@@ -98,7 +98,7 @@ Door.prototype.button = function(val) {
             this.door_lock(DOOR_UNLOCK);
         }
 
-        if(!this.inframe) {
+        if(!this.inframe && !this.close_requested) {
             this.logger.info('Door is unlocked: processing close');
 
             this.close_requested = true;
