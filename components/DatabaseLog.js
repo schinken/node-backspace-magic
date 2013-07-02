@@ -16,10 +16,10 @@ DatabaseLog.prototype.handleDisconnect = function(connection) {
         }
 
         if (err.code !== 'PROTOCOL_CONNECTION_LOST') {
-            throw err;
+            that.logger.error('Error with errorcode '+err.code+' happed');
         }
 
-        that.logger.error('Re-connecting lost connection: ' + err.stack);
+        that.logger.warn('Re-connecting lost connection: ' + err.stack);
         that.connection = that.connect();
     });
 }
