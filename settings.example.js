@@ -12,6 +12,7 @@ module.exports = {
     'relais': {
         'notleuchte_weiss': 3,
         'notleuchte_rot':   4,
+        'alarm':            5,
         'heizung':          6
     },
     'db': {
