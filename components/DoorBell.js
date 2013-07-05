@@ -32,7 +32,7 @@ DoorBell.prototype.ring = function(val) {
         this.logger.info('Toggeling exitlight');
         this.wr.get_port(settings.relais.notleuchte_weiss, function(val) {
             val = (val == 1)? 0 : 1;
-            that.blink_exit(val, 7, function() {
+            that.blink_exit(val, 6, function() {
                 that.logger.info('Toggeling exitlight finished');
             });
         });
