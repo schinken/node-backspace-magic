@@ -48,7 +48,7 @@ DoorBell.prototype.blink_exit = function(val, amount, cb) {
     var  newval = (val == 1)? 0 : 1
         ,that = this;
 
-    if(amount == 0) {
+    if(amount <= 0) {
         cb = cb || function() {};
         cb();
         return;
@@ -56,7 +56,7 @@ DoorBell.prototype.blink_exit = function(val, amount, cb) {
     
     this.wr.set_port(settings.relais.notleuchte_weiss, val, function() {
         setTimeout(function() {
-            that.blink_exit(newval, amount--, cb);    
+            that.blink_exit(newval, amount-1, cb);    
         }, 800);
     });
     
