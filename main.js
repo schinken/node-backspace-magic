@@ -5,7 +5,8 @@ var Udpio = require('./Udpio')
    ,DatabaseLog = require('./components/DatabaseLog')
    ,winston = require('winston')
    ,settings = require('./settings')
-   ,StatusAPI = require('bckspc-status');
+   ,StatusAPI = require('bckspc-status')
+   ,Ledboard = require('./Ledboard.js');
 
 var logger = new (winston.Logger)({
     transports: [
@@ -24,7 +25,10 @@ var doorbell = new DoorBell(logger);
 var heater = new Heater(logger);
 var dblog = new DatabaseLog(logger);
 
+var ledboard = new Ledboard(settings.ledboard_api);
+
 var udp_events = new Udpio('AIO0', settings.udpio.port, settings.udpio.ip, logger);
+var common_events = new Udpio('COMMON', settings.udpio.port, settings.udpio.ip, logger);
 
 // Request packages on init
 udp_events.init();
@@ -48,6 +52,10 @@ udp_events.on('doorbutton', function(val){
 udp_events.on('doorbell', function(val){
     doorbell.ring(val);
     dblog.logEvent('DOORBELL', val);
+});
+
+common_events.on('irc_alarm', function(val) {
+    ledboard.send_text('irc: '+val);
 });
 
 // Heater
