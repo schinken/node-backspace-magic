@@ -7,7 +7,7 @@ var INIT_TOKEN = 'init';
 
 var UDPIO = function(namespace, port, ip, logger) {
 
-    this.reMessage = new RegExp(namespace+",(\\d+),(\\w+),(\\d+)", 'i');
+    this.reMessage = new RegExp(namespace+",(\\d+),(\\w+),(.*)$", 'i');
 
     this.ip = ip;
     this.port = port || 5042;
@@ -39,13 +39,23 @@ UDPIO.prototype.setup = function() {
             this.initId = INIT_ID_UNAVAILABLE;
 
             var key = m[2];
-            var val = (m[3].indexOf('.') !== -1)? parseFloat(m[3]) : parseInt(m[3], 10);
+            var val = m[3];
 
-            that.logger.log('info', 'received package %s: %d', key, val);
+            // Check if value is number
+            if(!isNaN(parseFloat(val)) && isFinite(val)) {
+                if(val.indexOf('.') !== -1) {
+                    val = parseFloat(val);
+                } else {
+                    val = parseInt(val, 10);
+                }
+            }    
+            
+            that.logger.log('info', 'received package %s: %s', key, val);
             that.emit(key, val);
         }
     });
 };
+
 
 UDPIO.prototype.init = function() {
     this.initId = parseInt(Math.random()*10000, 10);
