@@ -8,6 +8,7 @@ module.exports = {
         'port': 5042,
         'ip': '10.1.20.255'
     },
+    'ledboard_api': 'api.ledboard.bckspc.de',
     'relais_host': 'https://webrelais.bckspc.de',
     'status_api': 'http://status.bckspc.de/status.php?response=json',
     'relais': {
