@@ -24,7 +24,7 @@ var doorbell = new DoorBell(logger);
 var heater = new Heater(logger);
 var dblog = new DatabaseLog(logger);
 
-var udp_events = new Udpio('AIO0', settings.udpio.port, logger);
+var udp_events = new Udpio('AIO0', settings.udpio.port, settings.udpio.ip, logger);
 
 // Request packages on init
 udp_events.init();

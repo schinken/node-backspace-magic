@@ -5,11 +5,11 @@ var events = require('events')
 var INIT_ID_UNAVAILABLE = -1;
 var INIT_TOKEN = 'init';
 
-var UDPIO = function(namespace, port, logger) {
+var UDPIO = function(namespace, port, ip, logger) {
 
     this.reMessage = new RegExp(namespace+",(\\d+),(\\w+),(\\d+)", 'i');
 
-    this.ip = '255.255.255.255';
+    this.ip = ip;
     this.port = port || 5042;
     this.namespace = namespace;
 

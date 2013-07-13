@@ -5,7 +5,8 @@ module.exports = {
        'pass': ''
     },
     'udpio': {
-        'port': 5042  
+        'port': 5042,
+        'ip': '10.1.20.255'
     },
     'relais_host': 'https://webrelais.bckspc.de',
     'status_api': 'http://status.bckspc.de/status.php?response=json',
