@@ -2,8 +2,8 @@ var settings = require('../settings')
    ,StatusAPI = require('bckspc-status')
    ,Webrelais = require('../Webrelais');
 
-var HEATER_ON = 0;
-var HEATER_OFF = 1;
+var HEATER_ON = 1;
+var HEATER_OFF = 0;
 
 var Heater = function(logger) {
     this.logger = logger;
