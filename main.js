@@ -59,6 +59,10 @@ udp_events.on('doorbell', function(val){
     dblog.logEvent('DOORBELL', val);
 });
 
+udp_events.on('backlock', function(val){
+    dblog.logEvent('BACKLOCK', val);
+});
+
 common_events.on('irc_alarm', function(val) {
     ledboard.send_text('irc: '+val);
 });
