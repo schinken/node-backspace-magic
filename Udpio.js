@@ -25,7 +25,7 @@ var UDPIO = function(namespace, port, ip, logger) {
 
     this.setup();
 
-    logger.log('info', 'Listing on %s:%d', this.ip, this.port);
+    logger.log('info', 'Listening on %s:%d', this.ip, this.port);
 };
 
 util.inherits(UDPIO, events.EventEmitter);
