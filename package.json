@@ -19,6 +19,7 @@
     "dependencies" : {
         "bckspc-status": "https://github.com/schinken/nodejs-bckspc-status/tarball/master",
         "winston": "latest",
+        "winston-syslog": "latest",
         "mysql": "latest"
     },
     "engine": {

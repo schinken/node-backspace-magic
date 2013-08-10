@@ -8,13 +8,18 @@ var Udpio = require('./Udpio')
    ,StatusAPI = require('bckspc-status')
    ,Ledboard = require('./Ledboard.js');
 
-var logger = new (winston.Logger)({
-    transports: [
-        new (winston.transports.Console)({
-            timestamp: true,
-            colorize: true
-        })
-    ]
+require('winston-syslog').Syslog;
+
+
+process.title = 'bckspc-magic';
+
+
+var logger = new winston.Logger;
+
+logger.add(winston.transports.Syslog);
+logger.add(winston.transports.Console, {
+  colorize: true,
+  timestamp: true
 });
 
 var status_api = new StatusAPI(settings.status_api, 120);
