@@ -66,8 +66,6 @@ DatabaseLog.prototype.connect = function() {
 
 DatabaseLog.prototype.logEvent = function(contact, value) {
 
-    contact = contact + "_TST";
-
     var log = this.logger;
 
     if(!this.connected) {
