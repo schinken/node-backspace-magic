@@ -64,7 +64,7 @@ udp_events.on('backlock', function(val){
 });
 
 common_events.on('irc_alarm', function(val) {
-    ledboard.send_text('irc: '+val);
+    //ledboard.send_text('irc: '+val);
 });
 
 // Heater
