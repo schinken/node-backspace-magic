@@ -92,12 +92,6 @@ Door.prototype.button = function(val) {
 
         this.logger.info('Button has been pressed');
 
-        // if door is locked open the door
-        if(this.locked) {
-            this.logger.info('Door is locked: opening');
-            this.door_lock(DOOR_UNLOCK);
-        }
-
         if(!this.inframe && !this.close_requested) {
             this.logger.info('Door is unlocked: processing close');
 
