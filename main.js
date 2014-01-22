@@ -5,8 +5,8 @@ var Udpio = require('./Udpio')
    ,DatabaseLog = require('./components/DatabaseLog')
    ,winston = require('winston')
    ,settings = require('./settings')
-   ,StatusAPI = require('bckspc-status')
-   ,Ledboard = require('./Ledboard.js');
+   ,StatusAPI = require('bckspc-status');
+//   ,Ledboard = require('./Ledboard.js');
 
 require('winston-syslog').Syslog;
 
@@ -30,7 +30,7 @@ var doorbell = new DoorBell(logger);
 var heater = new Heater(logger);
 var dblog = new DatabaseLog(logger);
 
-var ledboard = new Ledboard(settings.ledboard_api);
+//var ledboard = new Ledboard(settings.ledboard_api);
 
 var udp_events = new Udpio('AIO0', settings.udpio.port, settings.udpio.ip, logger);
 var common_events = new Udpio('COMMON', settings.udpio.port, settings.udpio.ip, logger);
