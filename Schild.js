@@ -23,7 +23,7 @@ Schild.prototype.standBy = function() {
 
 Schild.prototype._sendMessage = function(msg) {
 
-    var message = new Buffer(str);
+    var message = new Buffer(msg);
     var client = dgram.createSocket("udp4");
     client.send(message, 0, message.length, this.port, this.host, function(err, bytes) {
           client.close();
