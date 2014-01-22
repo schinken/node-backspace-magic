@@ -5,7 +5,8 @@ var Udpio = require('./Udpio')
    ,DatabaseLog = require('./components/DatabaseLog')
    ,winston = require('winston')
    ,settings = require('./settings')
-   ,StatusAPI = require('bckspc-status');
+   ,StatusAPI = require('bckspc-status')
+   ,Schild = require('Schild');
 //   ,Ledboard = require('./Ledboard.js');
 
 require('winston-syslog').Syslog;
@@ -29,6 +30,8 @@ var doorbell = new DoorBell(logger);
 
 var heater = new Heater(logger);
 var dblog = new DatabaseLog(logger);
+
+var schild = new Schild('schild');
 
 //var ledboard = new Ledboard(settings.ledboard_api);
 
@@ -69,11 +72,13 @@ common_events.on('irc_alarm', function(val) {
 
 // Heater
 status_api.on('space_closed', function() {
+    schild.standBy();
     doorbell.space_status(false);
     heater.switch_off();
 });
 
 status_api.on('space_opened', function() {
+    schild.on();
     doorbell.space_status(true);
     heater.switch_on();
 });
