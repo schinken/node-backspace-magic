@@ -1,19 +1,23 @@
 var dgram = require('dgram');
 
-var Schild = function(host, port) {
-    this.host = host || 'schild';
-    this.port = port || 10003;
+var Schild = function(host, port, logger) {
+    this.host = host;
+    this.port = port;
+    this.logger = logger;
 };
 
 Schild.prototype.off = function() {
+    this.logger.info('Switching schild off');
     this._sendMessage('0');
 };
 
 Schild.prototype.on = function() {
+    this.logger.info('Switching schild on');
     this._sendMessage('2');
 };
 
 Schild.prototype.standBy = function() {
+    this.logger.info('Switching schild to standby');
     this._sendMessage('1');
 };
 

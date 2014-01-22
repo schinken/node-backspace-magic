@@ -31,7 +31,7 @@ var doorbell = new DoorBell(logger);
 var heater = new Heater(logger);
 var dblog = new DatabaseLog(logger);
 
-var schild = new Schild('schild');
+var schild = new Schild('schild', 10003, logger);
 
 //var ledboard = new Ledboard(settings.ledboard_api);
 
