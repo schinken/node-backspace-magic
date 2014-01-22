@@ -6,7 +6,7 @@ var Udpio = require('./Udpio')
    ,winston = require('winston')
    ,settings = require('./settings')
    ,StatusAPI = require('bckspc-status')
-   ,Schild = require('Schild');
+   ,Schild = require('./Schild');
 //   ,Ledboard = require('./Ledboard.js');
 
 require('winston-syslog').Syslog;
