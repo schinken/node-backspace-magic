@@ -32,7 +32,7 @@ Misc.prototype.alarm = function(val) {
    });
 };
 
-DoorBell.prototype.blink_alarm = function(val, amount, cb) {
+Misc.prototype.blink_alarm = function(val, amount, cb) {
 
     var  newval = (val == 1)? 0 : 1
         ,that = this;
