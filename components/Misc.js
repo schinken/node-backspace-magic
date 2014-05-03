@@ -14,18 +14,41 @@ Misc.prototype.space_status = function(status) {
 };
 
 Misc.prototype.alarm = function(val) {
-    
-    var that = this;
+
+   if(!this.space_open) {
+      return false;
+   }
+   
+   var that = this;
 
    this.logger.info('Alarm triggered');
 
-   // Switch on alarm light
-   this.logger.info('Switching on alarm light');
-   this.wr.set_port(settings.relais.alarm, 1);
-   setTimeout(function() {
-      that.logger.info('Switching off alarm light');
-      that.wr.set_port(settings.relais.alarm, 0);
-   }, 5*1000);
+   // Blink alarmlight
+   this.wr.get_port(settings.relais.alarm, function(val) {
+      val = (val == 1)? 0 : 1;
+      that.blink_alarm(val, 6, function() {
+         that.logger.info('Toggeling alarmlight finished');
+      });
+   });
+};
+
+DoorBell.prototype.blink_alarm = function(val, amount, cb) {
+
+    var  newval = (val == 1)? 0 : 1
+        ,that = this;
+
+    if(amount <= 0) {
+        cb = cb || function() {};
+        cb();
+        return;
+    }
+    
+    this.wr.set_port(settings.relais.alarm, val, function() {
+        setTimeout(function() {
+            that.blink_alarm(newval, amount-1, cb);    
+        }, 500);
+    });
+    
 };
 
 module.exports = Misc;
