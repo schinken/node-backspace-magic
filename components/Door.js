@@ -129,7 +129,9 @@ Door.prototype.door_lock = function(lock) {
 
     var post_data = querystring.stringify({
         'type':     action,
-        'password': settings.door.pass
+        'password': settings.door.pass,
+        'nickname': settings.door.nickname,
+        'userid':   settings.door.userid
     });
 
     var post_options = {

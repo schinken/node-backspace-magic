@@ -2,7 +2,9 @@ module.exports = {
    'door': {
        'host': 'door.bckspc.de',
        'path': '/verify',
-       'pass': ''
+       'pass': '',
+       'nickname': '',
+       'userid': 0
     },
     'udpio': {
         'port': 5042,
