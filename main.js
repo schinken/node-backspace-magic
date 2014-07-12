@@ -1,7 +1,5 @@
 var Udpio = require('./Udpio')
    ,Door  = require('./components/Door')
-   ,DoorBell = require('./components/DoorBell')
-   ,Misc = require('./components/Misc')
    ,DatabaseLog = require('./components/DatabaseLog')
    ,winston = require('winston')
    ,settings = require('./settings')
@@ -25,17 +23,12 @@ logger.add(winston.transports.Console, {
 var status_api = new StatusAPI(settings.status_api, 120);
 
 var doorcontrol = new Door(logger);
-var doorbell = new DoorBell(logger);
-var misc = new Misc(logger);
 
 var dblog = new DatabaseLog(logger);
 
 var schild = new Schild('schild', 10003, logger);
 
-//var ledboard = new Ledboard(settings.ledboard_api);
-
 var udp_events = new Udpio('AIO0', settings.udpio.port, settings.udpio.ip, logger);
-var common_events = new Udpio('COMMON', settings.udpio.port, settings.udpio.ip, logger);
 
 // Request packages on init
 udp_events.init();
@@ -56,29 +49,15 @@ udp_events.on('doorbutton', function(val){
     dblog.logEvent('TASTER', val);
 });
 
-udp_events.on('doorbell', function(val){
-    doorbell.ring(val);
-    dblog.logEvent('DOORBELL', val);
-});
-
 udp_events.on('backlock', function(val){
     dblog.logEvent('BACKLOCK', val);
-});
-
-common_events.on('irc_alarm', function(val) {
-    //ledboard.send_text('irc: '+val);
-    misc.alarm();
 });
 
 // Heater
 status_api.on('space_closed', function() {
     schild.standBy();
-    doorbell.space_status(false);
-    misc.space_status(false);
 });
 
 status_api.on('space_opened', function() {
     schild.on();
-    doorbell.space_status(true);
-    misc.space_status(true);
 });
