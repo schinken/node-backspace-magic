@@ -25,9 +25,6 @@ Door.prototype.frame = function(val) {
     if(val) {
         this.logger.info('Door has been closed');
 
-        this.logger.info('Switching off red light in hackcenter');
-        this.wr.set_port(settings.relais.notleuchte_rot, 0);
-
         // If close was requested and door was closed (frame not locked)
         if(this.close_requested) {
             
@@ -47,9 +44,6 @@ Door.prototype.frame = function(val) {
     } else {
         this.logger.info('Door has been opened');
 
-        this.logger.info('Switching on red light in hackcenter');
-        this.wr.set_port(settings.relais.notleuchte_rot, 1);
-
         this.inframe = false;
     }
 };
@@ -62,24 +56,7 @@ Door.prototype.lock = function(val) {
         this.logger.info('Door has been locked');
         this.locked = true;
     } else {
-
         this.logger.info('Door has been unlocked');
-
-        if(this.locked) {
-            // Door was locked previously, switch on light for 5 min
-            this.logger.info('Switching on white light in hackcenter');
-            this.wr.set_port(settings.relais.notleuchte_weiss, 1, function() {
-                // Notleuchte ist an...
-                that.logger.info('White light switched on');
-                setTimeout(function() {
-                    that.wr.set_port(settings.relais.notleuchte_weiss, 0, function() {
-                        // Notleuchte ist aus
-                        that.logger.info('Switching off white light in hackcenter');
-                    });
-                }, 5*60*1000);
-            });
-        }
-
         this.locked = false;
     }
 };
