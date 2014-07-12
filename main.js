@@ -1,14 +1,12 @@
 var Udpio = require('./Udpio')
    ,Door  = require('./components/Door')
    ,DoorBell = require('./components/DoorBell')
-   ,Heater = require('./components/Heater')
    ,Misc = require('./components/Misc')
    ,DatabaseLog = require('./components/DatabaseLog')
    ,winston = require('winston')
    ,settings = require('./settings')
    ,StatusAPI = require('bckspc-status')
    ,Schild = require('./Schild');
-//   ,Ledboard = require('./Ledboard.js');
 
 require('winston-syslog').Syslog;
 
@@ -30,7 +28,6 @@ var doorcontrol = new Door(logger);
 var doorbell = new DoorBell(logger);
 var misc = new Misc(logger);
 
-var heater = new Heater(logger);
 var dblog = new DatabaseLog(logger);
 
 var schild = new Schild('schild', 10003, logger);
@@ -78,12 +75,10 @@ status_api.on('space_closed', function() {
     schild.standBy();
     doorbell.space_status(false);
     misc.space_status(false);
-    heater.switch_off();
 });
 
 status_api.on('space_opened', function() {
     schild.on();
     doorbell.space_status(true);
     misc.space_status(true);
-    heater.switch_on();
 });
